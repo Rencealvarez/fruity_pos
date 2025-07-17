@@ -106,7 +106,7 @@ const Payment: React.FC = () => {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 max-h-[80vh] overflow-y-auto">
+    <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 max-h-[80vh] overflow-y-auto pb-24">
       <div className="flex items-center gap-2 mb-4">
         {/* Replace DollarSign icon with Peso sign */}
         <span className="text-green-600 text-2xl font-bold">₱</span>
@@ -191,19 +191,21 @@ const Payment: React.FC = () => {
       )}
 
       {/* Complete Transaction Button */}
-      <button
-        onClick={handleCompleteTransaction}
-        disabled={
-          !cashReceived || parseFloat(cashReceived) < total || isProcessing
-        }
-        className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors text-base sm:text-lg ${
-          !cashReceived || parseFloat(cashReceived) < total || isProcessing
-            ? "bg-gray-300 cursor-not-allowed"
-            : "bg-green-600 hover:bg-green-700 active:bg-green-800"
-        }`}
-      >
-        {isProcessing ? "Processing..." : "Complete Transaction"}
-      </button>
+      <div className="sticky bottom-0 left-0 right-0 bg-white p-4 z-10">
+        <button
+          onClick={handleCompleteTransaction}
+          disabled={
+            !cashReceived || parseFloat(cashReceived) < total || isProcessing
+          }
+          className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors text-base sm:text-lg ${
+            !cashReceived || parseFloat(cashReceived) < total || isProcessing
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-green-600 hover:bg-green-700 active:bg-green-800"
+          }`}
+        >
+          {isProcessing ? "Processing..." : "Complete Transaction"}
+        </button>
+      </div>
 
       {/* Receipt Modal */}
       {showReceipt && currentTransaction && (

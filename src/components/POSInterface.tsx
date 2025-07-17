@@ -134,7 +134,7 @@ const POSInterface: React.FC = () => {
           </div>
 
           {/* Mobile Content */}
-          <div className="flex-1 overflow-hidden">
+          <div className="flex-1 overflow-y-auto">
             {activeTab === "cart" ? (
               <div className="h-full p-4">
                 <Cart />
@@ -147,46 +147,50 @@ const POSInterface: React.FC = () => {
           </div>
 
           {/* Mobile Product Grid - Bottom Sheet */}
-          <div
-            className={`fixed inset-x-0 bottom-0 bg-white rounded-t-2xl shadow-2xl transition-transform duration-300 ${
-              isMobileMenuOpen ? "translate-y-0" : "translate-y-full"
-            }`}
-            style={{ height: "70vh" }}
-          >
-            <div className="p-4">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  Products
-                </h3>
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              <div className="overflow-y-auto h-full pb-20">
-                <div className="grid grid-cols-2 gap-6">
-                  {filteredProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
-                </div>
-
-                {filteredProducts.length === 0 && (
-                  <div className="text-center py-12">
-                    <Package className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-base font-semibold text-gray-600 mb-2">
-                      No products found
+          {isMobileMenuOpen && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-50 z-50"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <div
+                className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-2xl z-60"
+                style={{ height: "90vh", maxHeight: "95vh" }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="p-4 h-full flex flex-col">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      Products
                     </h3>
-                    <p className="text-sm text-gray-500">
-                      Try selecting a different category.
-                    </p>
+                    <button
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
                   </div>
-                )}
+                  <div className="overflow-y-auto flex-1 pb-20">
+                    <div className="grid grid-cols-2 gap-6">
+                      {filteredProducts.map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                      ))}
+                    </div>
+                    {filteredProducts.length === 0 && (
+                      <div className="text-center py-12">
+                        <Package className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                        <h3 className="text-base font-semibold text-gray-600 mb-2">
+                          No products found
+                        </h3>
+                        <p className="text-sm text-gray-500">
+                          Try selecting a different category.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Desktop Layout */}
